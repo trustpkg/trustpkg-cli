@@ -9,7 +9,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/mattn/go-runewidth"
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
 	"golang.org/x/term"
 )
 

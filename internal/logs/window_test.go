@@ -12,8 +12,8 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/x/ansi"
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
-	"github.com/trustpkg/trustpkg-cli/internal/theme"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/theme"
 	"golang.org/x/term"
 )
 
@@ -270,7 +270,7 @@ func TestCommandFillsAvailableWidth(t *testing.T) {
 				Facts: terminalParameters.Facts{
 					TerminalWidth: tt.width, SupportsANSI: tt.ansiEnabled, SupportsUnicode: tt.unicode,
 				},
-				Theme: theme.Theme{Border: "\x1b[34m", Code: "\x1b[32m", Reset: "\x1b[0m"},
+				Theme:    theme.Theme{Border: "\x1b[34m", Code: "\x1b[32m", Reset: "\x1b[0m"},
 				MaxWidth: tt.maxWidth,
 			})
 			logger.output = &output

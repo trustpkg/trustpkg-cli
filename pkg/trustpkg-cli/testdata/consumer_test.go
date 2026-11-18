@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/charmbracelet/x/input"
-	cli "github.com/trustpkg/trustpkg-cli/pkg/trustpkg-cli"
+	cli "github.com/trustpkg/trustpkg-cli-forge/pkg/trustpkg-cli"
 )
 
 func TestPublicComponents(t *testing.T) {

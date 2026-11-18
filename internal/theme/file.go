@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
 )
 
 var ansiColorNames = [...]string{

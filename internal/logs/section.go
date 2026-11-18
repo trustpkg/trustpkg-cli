@@ -6,7 +6,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
 )
 
 type sectionState struct {

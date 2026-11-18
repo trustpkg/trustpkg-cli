@@ -6,9 +6,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/trustpkg/trustpkg-cli/internal/logs"
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
-	"github.com/trustpkg/trustpkg-cli/internal/theme"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/logs"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/theme"
 )
 
 func main() {

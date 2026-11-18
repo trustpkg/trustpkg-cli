@@ -1,6 +1,6 @@
 package trustpkgCli
 
-import terminalApi "github.com/trustpkg/trustpkg-cli/internal/terminal-api"
+import terminalApi "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-api"
 
 type (
 	Command      = terminalApi.Command

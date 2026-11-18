@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"strings"
 
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
 
 	"github.com/pelletier/go-toml/v2"
 )

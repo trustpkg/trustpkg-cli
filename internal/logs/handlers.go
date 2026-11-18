@@ -5,8 +5,8 @@ import (
 	"os"
 	"sync"
 
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
-	"github.com/trustpkg/trustpkg-cli/internal/theme"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/theme"
 )
 
 type Logger struct {

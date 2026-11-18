@@ -1,4 +1,4 @@
-module github.com/trustpkg/trustpkg-cli
+module github.com/trustpkg/trustpkg-cli-forge
 
 go 1.26.10
 

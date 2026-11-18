@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
 )
 
 type SelectOption struct {

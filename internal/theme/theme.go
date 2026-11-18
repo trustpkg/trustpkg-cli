@@ -1,8 +1,8 @@
 package theme
 
 import (
-	"github.com/trustpkg/trustpkg-cli/internal/progress"
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/progress"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
 )
 
 type Handler struct {
