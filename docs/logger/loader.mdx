@@ -1,0 +1,38 @@
+---
+title: Loader
+description: Display progress on a single updating terminal line.
+---
+
+# Loader
+
+`Logger.Loader(steps, currentStep, options...)` redraws a progress line as work
+advances. `steps` must be positive and `currentStep` must be between zero and
+`steps`. The final update ends the line.
+
+```go
+import "github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+
+func showProgress(log *logger.Logger) error {
+	const steps = 4
+	for step := 0; step <= steps; step++ {
+		if err := log.Loader(
+			steps,
+			step,
+			logger.SeverityInfo,
+			logger.LoaderLabel("Downloading"),
+		); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+```
+
+Severity defaults to `SeverityInfo`; `LoaderLabel` adds an optional prefix.
+The loader uses the detected terminal width or an 80-column fallback, subject
+to `MaxWidth`. It uses carriage returns to redraw, so redirected output keeps
+the updates instead of replacing earlier lines.
+
+---
+
+**Next:** [Footer](/tools/trustpkg-cli-forge/logger/footer)

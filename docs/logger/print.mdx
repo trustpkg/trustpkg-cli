@@ -1,0 +1,30 @@
+---
+title: Print
+description: Add timestamps and severity labels to terminal messages.
+---
+
+# Print
+
+`Logger.Print` writes a message with optional prefixes. Use
+`logger.WithTimestamp` for local time in `[YYYY-MM-DD HH:MM:SS]` format and a
+severity for a colored label such as `Info:` or `Error:`. They can be combined.
+
+```go
+import "github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+
+func report(log *logger.Logger) error {
+	if err := log.Print("Connecting", logger.WithTimestamp, logger.SeverityStart); err != nil {
+		return err
+	}
+	return log.Print("Connection established", logger.WithTimestamp, logger.SeveritySuccess)
+}
+```
+
+Without options, `Print` adds no prefix. A severity alone adds its label;
+`WithTimestamp` alone adds only the timestamp. The method returns errors for
+invalid options, invalid severities, or output failures. It writes above an
+active footer when called on the same logger.
+
+---
+
+**Next:** [Command](/tools/trustpkg-cli-forge/logger/command)

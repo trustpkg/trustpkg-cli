@@ -1,0 +1,27 @@
+---
+title: Command
+description: Display a command as copyable terminal output.
+---
+
+# Command
+
+`Logger.Command` displays a command between separator lines. It is presentation
+only: the command is never executed.
+
+```go
+import "github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+
+func showCommand(log *logger.Logger) error {
+	return log.Command("go test ./...")
+}
+```
+
+The separators use the available terminal or panel width, subject to
+`MaxWidth`. Long simple commands may be wrapped with POSIX-style `\` line
+continuations. If a safe split cannot be determined, the command is left
+unchanged. Commands must be valid UTF-8 and cannot contain control characters
+or newlines.
+
+---
+
+**Next:** [Section](/tools/trustpkg-cli-forge/logger/section)

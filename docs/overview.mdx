@@ -1,0 +1,39 @@
+---
+title: Trustpkg CLI Forge Docs
+description: Welcome to the Trustpkg CLI Forge documentation.
+---
+
+# Trustpkg CLI Forge
+
+## What is Trustpkg CLI Forge?
+
+Trustpkg CLI Forge is a Go library for building command-line applications. It
+provides terminal logging, interactive prompts, themes, command parsing, and
+terminal event handling.
+
+## How to use the docs
+
+- [Getting Started: Installation](/tools/trustpkg-cli-forge/getting-started/installation): Add the library to a Go project.
+- [Getting Started: Requirements](/tools/trustpkg-cli-forge/getting-started/requirements): Check Go and terminal requirements.
+
+## Packages
+
+- `pkg/logger`: Logging, prompts, loaders, and terminal windows. See the
+  [logger guide](/tools/trustpkg-cli-forge/logger/overview).
+- `pkg/theme` and `pkg/facts`: Themes and terminal capability detection. See
+  [Custom Themes](/tools/trustpkg-cli-forge/theming/overview) to create and load
+  an optional custom theme, or [Terminal Parameters](/tools/trustpkg-cli-forge/terminal-parameters/overview)
+  to learn what the detected facts mean.
+- `pkg/terminal-api`: Define command trees and collect terminal events. See the
+  [Terminal API guide](/tools/trustpkg-cli-forge/terminal-api/overview).
+- `pkg/progress`: Report completed steps to a callback. See the
+  [Progress guide](/tools/trustpkg-cli-forge/progress/overview).
+
+## Requirements
+
+Go 1.26.10 or later is required. Interactive components require a compatible
+terminal. Terminal event collection is supported on Linux, macOS, and BSD.
+
+---
+
+**Next:** [Install Trustpkg CLI Forge](/tools/trustpkg-cli-forge/getting-started/installation)

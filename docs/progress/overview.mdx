@@ -1,0 +1,45 @@
+---
+title: Progress
+description: Report completed work through a progress callback.
+---
+
+# Progress
+
+The `pkg/progress` package reports completed steps to a callback. Create a
+reporter with the total number of steps, then call it once after each step
+finishes.
+
+```go
+import (
+	"fmt"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/progress"
+)
+
+func run() {
+	const totalSteps = 3
+	report := progress.NewProgressReporter(
+		totalSteps,
+		func(update progress.ProgressUpdate) {
+			fmt.Printf("Completed %d of %d steps\n", update.CurrentStep, update.TotalSteps)
+		},
+	)
+
+	for step := 1; step <= totalSteps; step++ {
+		fmt.Printf("Working on step %d\n", step)
+		report()
+	}
+}
+```
+
+`ProgressUpdate.CurrentStep` starts at 1 and reaches `TotalSteps`. The callback
+runs synchronously after each report. `totalSteps` must be positive, and
+calling the reporter more times than the total panics. Create a new reporter
+for each operation.
+
+The [terminal facts collector](/tools/trustpkg-cli-forge/terminal-parameters/collect)
+uses the same callback shape to report detection progress.
+
+---
+
+**Next:** [Documentation overview](/tools/trustpkg-cli-forge/overview)

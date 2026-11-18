@@ -1,0 +1,21 @@
+---
+title: Terminal API
+description: Parse command-line input and collect terminal events.
+---
+
+# Terminal API
+
+The `pkg/terminal-api` package provides two independent tools:
+
+- [Command parsing](/tools/trustpkg-cli-forge/terminal-api/parser) turns a
+  command definition and argument list into an invocation. It does not run
+  application commands.
+- [Terminal events](/tools/trustpkg-cli-forge/terminal-api/events) can collect
+  key input, terminal resizes, and interrupts.
+
+Both APIs return errors for invalid input or setup failures. Event collection
+requires explicit opt-in and is supported on Linux, macOS, and BSD.
+
+---
+
+**Next:** [Parse command-line arguments](/tools/trustpkg-cli-forge/terminal-api/parser)

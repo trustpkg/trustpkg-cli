@@ -1,0 +1,31 @@
+{
+  "title": "Logger",
+  "pages": [
+    "overview",
+    {
+      "group": "Getting started",
+      "pages": [
+        "setup"
+      ]
+    },
+    {
+      "group": "Output components",
+      "pages": [
+        "log",
+        "print",
+        "command",
+        "section",
+        "loader",
+        "footer"
+      ]
+    },
+    {
+      "group": "Interactive components",
+      "pages": [
+        "select",
+        "input",
+        "window"
+      ]
+    }
+  ]
+}

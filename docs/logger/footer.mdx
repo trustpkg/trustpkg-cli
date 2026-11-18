@@ -1,0 +1,39 @@
+---
+title: Footer
+description: Reserve terminal rows for a persistent status and spinner.
+---
+
+# Footer
+
+`StartFooter` reserves two rows at the bottom of the terminal for a status and
+spinner. Change the status with `UpdateFooter` and always call `StopFooter` to
+stop the animation and restore terminal scrolling.
+
+```go
+import (
+	"errors"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+)
+
+func runWithFooter(log *logger.Logger) (result error) {
+	if err := log.StartFooter("Preparing download"); err != nil {
+		return err
+	}
+	defer func() { result = errors.Join(result, log.StopFooter()) }()
+
+	if err := log.Print("Resolving package", logger.SeverityInfo); err != nil {
+		return err
+	}
+	return log.UpdateFooter("Downloading package")
+}
+```
+
+Footer support requires an interactive ANSI terminal; otherwise
+`StartFooter` returns `logger.ErrFooterUnsupported` without displaying one.
+Write above it using the same logger—independent terminal writes can disrupt
+the footer. Prompts and windows cannot run while a footer is active.
+
+---
+
+**Next:** [Select](/tools/trustpkg-cli-forge/logger/select)

@@ -1,0 +1,32 @@
+---
+title: Requirements
+description: Go version, terminal, and platform requirements.
+---
+
+# Requirements
+
+## Go
+
+Trustpkg CLI Forge requires Go 1.26.10 or later.
+
+## Terminal components
+
+Logging and command output can be used with redirected output. Interactive
+prompts, footers, and full-screen windows require a compatible interactive
+terminal. Prompts return an error when the terminal is unsupported.
+
+Only one component should read terminal input at a time. Close an active
+terminal event source before starting a prompt, window, or another input reader.
+When using terminal events, always call `Close()` to restore terminal settings,
+including after errors or cancellation.
+
+## Terminal events
+
+Keyboard, resize, interrupt, and EOF events are supported on Linux, macOS, and
+BSD. Other platforms return `ErrEventsUnsupported`. Resize events require a
+terminal output; keyboard events may also read from a pipe on supported
+platforms.
+
+---
+
+**Next:** [Terminal parameters](/tools/trustpkg-cli-forge/terminal-parameters/overview)

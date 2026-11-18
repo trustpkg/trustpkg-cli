@@ -1,0 +1,44 @@
+---
+title: Generate a Theme File
+description: Generate a complete TOML template for a custom terminal theme.
+---
+
+# Generate a theme file
+
+Use `theme.GenerateThemeFile` to create a complete `theme.toml` template.
+The destination directory must already exist, and the function will not
+overwrite an existing `theme.toml`.
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/theme"
+)
+
+func main() {
+	if err := os.MkdirAll("config", 0o755); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	if err := theme.GenerateThemeFile("config", nil); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	fmt.Println("Created config/theme.toml")
+}
+```
+
+Run the program from your project directory. It creates all four required
+palettes with the built-in colors as a starting point. Edit the generated file
+to customize it, then load it in your application.
+
+See [Theme file format](/tools/trustpkg-cli-forge/theming/format) for the
+available color values and required fields.
+
+---
+
+**Next:** [Theme file format](/tools/trustpkg-cli-forge/theming/format)

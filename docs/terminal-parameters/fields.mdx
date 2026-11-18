@@ -1,0 +1,35 @@
+---
+title: Terminal Facts Reference
+description: Understand the fields returned by GatherTerminalFacts.
+---
+
+# Terminal facts reference
+
+`GatherTerminalFacts` returns a `facts.Facts` value:
+
+| Field | Meaning |
+| --- | --- |
+| `IsStdinTTY` | Standard input is connected to a terminal. |
+| `IsStdoutTTY` | Standard output is connected to a terminal. |
+| `IsStderrTTY` | Standard error is connected to a terminal. |
+| `IsInteractive` | Both standard input and standard output are terminals. |
+| `TerminalWidth`, `TerminalHeight` | Detected terminal dimensions. They remain zero when no terminal size is available. |
+| `SupportsANSI` | Standard output is a terminal and `TERM` is not `dumb`. |
+| `SupportsANSI16Colors` | ANSI color support; currently the same detection as `SupportsANSI`. |
+| `SupportsANSI256Colors` | Environment variables indicate 256-color or true-color support. |
+| `SupportsTrueColor` | Environment variables indicate true-color support. |
+| `TerminalTheme` | `ThemeLight`, `ThemeDark`, or `ThemeAuto` when appearance cannot be detected. |
+| `SupportsUnicode` | `CapabilitySupported`, `CapabilityUnsupported`, or `CapabilityUnknown`, based on locale settings. |
+| `SupportsHyperlinks` | `CapabilitySupported` when a known terminal environment is detected; otherwise `CapabilityUnknown`. |
+| `CanAnimate` | ANSI is supported. This indicates animation can be attempted, not that every terminal will render it identically. |
+
+Color support, appearance, Unicode, and hyperlink values are inferred from the
+process environment. They may not reflect every terminal's actual behavior.
+
+Terminal width and height are read from standard output when it is a terminal;
+otherwise standard input, then standard error, are used as fallbacks. If none
+is a terminal, the dimensions are zero.
+
+---
+
+**Next:** [Custom themes](/tools/trustpkg-cli-forge/theming/overview)

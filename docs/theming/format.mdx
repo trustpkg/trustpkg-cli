@@ -1,0 +1,152 @@
+---
+title: Theme File Format
+description: Learn the fixed keys and color values in a custom theme file.
+---
+
+# Theme file format
+
+The theme file has four required tables. Their names and the keys inside them
+are fixed: do not add, remove, or rename tables or keys. Customize a theme by
+changing the color values only.
+
+The full-color tables accept `#RRGGBB` values. The limited-color tables accept
+the 16 ANSI names: `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`,
+`white`, and the corresponding `bright_` names. `background` can also be
+`default` to preserve the terminal's configured background.
+
+The complete template below contains the default values created by
+[`theme.GenerateThemeFile`](/tools/trustpkg-cli-forge/theming/generate):
+
+```toml
+["full colors dark"]
+accent = '#C1A5FF'
+background = 'default'
+border = '#9CA3AF'
+code = '#A5F3FC'
+debug = '#B5BDCC'
+description = '#D1D5DB'
+disabled = '#9CA3AF'
+done = '#4ADE80'
+error = '#F87171'
+heading = '#F3F4F6'
+in_progress = '#60A5FA'
+info = '#60A5FA'
+input = '#F3F4F6'
+key = '#C1A5FF'
+link = '#C1A5FF'
+log = '#F3F4F6'
+muted = '#9CA3AF'
+pending = '#9CA3AF'
+placeholder = '#9CA3AF'
+progress_filled = '#C1A5FF'
+progress_remaining = '#9CA3AF'
+prompt = '#C1A5FF'
+selected = '#C1A5FF'
+separator = '#9CA3AF'
+spinner = '#C1A5FF'
+success = '#4ADE80'
+text = '#F3F4F6'
+value = '#F3F4F6'
+warning = '#FBBF24'
+
+["full colors light"]
+accent = '#15803D'
+background = 'default'
+border = '#4B5563'
+code = '#115E59'
+debug = '#596273'
+description = '#4B5563'
+disabled = '#596273'
+done = '#166534'
+error = '#B91C1C'
+heading = '#14532D'
+in_progress = '#1D4ED8'
+info = '#1D4ED8'
+input = '#1C232B'
+key = '#15803D'
+link = '#15803D'
+log = '#1C232B'
+muted = '#596273'
+pending = '#4B5563'
+placeholder = '#596273'
+progress_filled = '#15803D'
+progress_remaining = '#4B5563'
+prompt = '#15803D'
+selected = '#14532D'
+separator = '#4B5563'
+spinner = '#15803D'
+success = '#166534'
+text = '#1C232B'
+value = '#1C232B'
+warning = '#C2410C'
+
+["limited colors dark"]
+accent = 'bright_magenta'
+background = 'default'
+border = 'white'
+code = 'cyan'
+debug = 'white'
+description = 'white'
+disabled = 'white'
+done = 'bright_green'
+error = 'bright_red'
+heading = 'bright_white'
+in_progress = 'bright_cyan'
+info = 'bright_cyan'
+input = 'bright_white'
+key = 'bright_magenta'
+link = 'bright_magenta'
+log = 'bright_white'
+muted = 'white'
+pending = 'white'
+placeholder = 'white'
+progress_filled = 'bright_magenta'
+progress_remaining = 'white'
+prompt = 'bright_magenta'
+selected = 'bright_magenta'
+separator = 'white'
+spinner = 'bright_magenta'
+success = 'bright_green'
+text = 'bright_white'
+value = 'bright_white'
+warning = 'bright_yellow'
+
+["limited colors light"]
+accent = 'blue'
+background = 'default'
+border = 'black'
+code = 'black'
+debug = 'black'
+description = 'black'
+disabled = 'black'
+done = 'green'
+error = 'red'
+heading = 'black'
+in_progress = 'blue'
+info = 'blue'
+input = 'black'
+key = 'blue'
+link = 'blue'
+log = 'black'
+muted = 'black'
+pending = 'black'
+placeholder = 'black'
+progress_filled = 'blue'
+progress_remaining = 'black'
+prompt = 'blue'
+selected = 'blue'
+separator = 'black'
+spinner = 'blue'
+success = 'green'
+text = 'black'
+value = 'black'
+warning = 'black'
+```
+
+`reset` is applied automatically and is not a theme-file key. Missing fields,
+unknown tables or keys, and invalid color values cause theme loading to return
+an error.
+
+---
+
+**Next:** [Load a custom theme](/tools/trustpkg-cli-forge/theming/use)

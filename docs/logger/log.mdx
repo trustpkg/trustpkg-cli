@@ -1,0 +1,34 @@
+---
+title: Log
+description: Write a message with an optional severity color.
+---
+
+# Log
+
+`Logger.Log` writes a message without adding a severity label. Severity is
+optional and defaults to `SeverityLog`; when ANSI is supported, it selects the
+message color from the current theme.
+
+```go
+import "github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+
+func report(log *logger.Logger) error {
+	if err := log.Log("Connecting to the registry", logger.SeverityInfo); err != nil {
+		return err
+	}
+	return log.Log("Connection failed", logger.SeverityError)
+}
+```
+
+Available severities are `SeverityLog`, `SeverityDebug`, `SeverityInfo`,
+`SeverityWarning`, `SeverityError`, `SeveritySuccess`, `SeverityStart`, and
+`SeverityDone`. `Log` accepts at most one severity and returns an error for an
+invalid value or output failure.
+
+`Log` can write above a footer when called on the same logger. Use
+[Print](/tools/trustpkg-cli-forge/logger/print) when you also want a timestamp
+or a visible severity prefix.
+
+---
+
+**Next:** [Print](/tools/trustpkg-cli-forge/logger/print)

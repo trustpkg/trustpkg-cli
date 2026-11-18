@@ -1,4 +1,4 @@
-package trustpkgCli
+package logger
 
 import "github.com/trustpkg/trustpkg-cli-forge/internal/logs"
 

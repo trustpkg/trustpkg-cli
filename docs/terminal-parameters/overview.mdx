@@ -1,0 +1,26 @@
+---
+title: Terminal Parameters
+description: Detect the current process's terminal capabilities with Go.
+---
+
+# Terminal parameters
+
+The `pkg/facts` package collects information about the current process's
+terminal. It reports whether standard streams are terminals, terminal size,
+color support, appearance, and other capabilities.
+
+The results are detections, not terminal configuration. Some capabilities can
+be reported as `unknown` when the environment does not provide enough
+information.
+
+Use the guides below to collect and interpret the values:
+
+- [Collect terminal facts](/tools/trustpkg-cli-forge/terminal-parameters/collect)
+- [Facts reference](/tools/trustpkg-cli-forge/terminal-parameters/fields)
+
+Terminal facts are also used by the [theme package](/tools/trustpkg-cli-forge/theming/overview)
+to select a palette and by the logger to adapt terminal output.
+
+---
+
+**Next:** [Collect terminal facts](/tools/trustpkg-cli-forge/terminal-parameters/collect)
