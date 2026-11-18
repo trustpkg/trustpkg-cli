@@ -1,17 +1,17 @@
-# trustpkg-cli
-trustpkg-cli is  coherent and shared cli system
+# trustpkg-cli-forge
+trustpkg-cli-forge is  coherent and shared cli system
 
 ## Use in another project
 
-The public import is `github.com/trustpkg/trustpkg-cli/pkg/trustpkg-cli`.
+The public import is `github.com/trustpkg/trustpkg-cli-forge/pkg/trustpkg-cli-forge`.
 After the module has been published, add it with:
 
 ```sh
-go get github.com/trustpkg/trustpkg-cli/pkg/trustpkg-cli
+go get github.com/trustpkg/trustpkg-cli-forge/pkg/trustpkg-cli-forge
 ```
 
 For local development before publication, use `go mod edit -replace
-github.com/trustpkg/trustpkg-cli=/path/to/trustpkg-cli` in the consuming
+github.com/trustpkg/trustpkg-cli-forge=/path/to/trustpkg-cli-forge` in the consuming
 project, then run `go mod tidy`. The module currently requires Go 1.26.10 or
 newer.
 
@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"os"
 
-	cli "github.com/trustpkg/trustpkg-cli/pkg/trustpkg-cli"
+	cli "github.com/trustpkg/trustpkg-cli-forge/pkg/trustpkg-cli-forge"
 )
 
 func main() {
@@ -108,7 +108,7 @@ using the default palettes. It returns an error if the file already exists.
 `background = "default"` preserves the terminal's background.
 
 Theme initialization uses an explicitly supplied `ThemeFilePath` when present.
-Otherwise it looks for `trustpkg-cli-theme.toml` in the working directory and
+Otherwise it looks for `trustpkg-cli-forge-theme.toml` in the working directory and
 uses the built-in defaults only if that file does not exist. Invalid or
 unreadable theme files produce an error.
 
@@ -249,10 +249,10 @@ application actions. Define the command tree and flags, then parse arguments
 without the executable name:
 
 ```go
-import cli "github.com/trustpkg/trustpkg-cli/pkg/trustpkg-cli"
+import cli "github.com/trustpkg/trustpkg-cli-forge/pkg/trustpkg-cli-forge"
 
 parser, err := cli.NewParser(cli.Command{
-	Name: "trustpkg-cli",
+	Name: "trustpkg-cli-forge",
 	Flags: []cli.Flag{
 		{Name: "output", Short: "o", Type: cli.ListFlag, Persistent: true},
 		{Name: "should-use", Type: cli.BoolFlag, Persistent: true},
