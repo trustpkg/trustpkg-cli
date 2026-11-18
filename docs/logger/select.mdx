@@ -1,0 +1,39 @@
+---
+title: Select
+description: Let users choose options with the keyboard.
+---
+
+# Select
+
+`Logger.Select` displays a multi-select prompt and returns selected values in
+the order the options were defined.
+
+```go
+import "github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+
+func choosePackages(log *logger.Logger) ([]string, error) {
+	return log.Select(logger.SelectInput{
+		Title:    "Choose packages",
+		Required: true,
+		Options: []logger.SelectOption{
+			{Label: "OpenSSL", Value: "openssl-devel"},
+			{Label: "SQLite", Value: "sqlite-devel"},
+			{Label: "zlib", Value: "zlib-devel"},
+		},
+	})
+}
+```
+
+Use Up/Down to move, Space to toggle the current option, and Tab to select it
+without submitting. Enter selects the current option and confirms. Ctrl+A
+toggles all options; Ctrl+D confirms without selecting the current option.
+Esc or Ctrl+C cancels.
+
+Set `Required` to require at least one selection. Without it, Ctrl+D can submit
+an empty result. Duplicate values and invalid option text return errors.
+Prompts require an interactive ANSI terminal; cancellation returns
+`logger.ErrPromptCancelled`.
+
+---
+
+**Next:** [Input](/tools/trustpkg-cli-forge/logger/input)

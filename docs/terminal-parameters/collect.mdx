@@ -1,0 +1,47 @@
+---
+title: Collect Terminal Facts
+description: Gather terminal capabilities and optionally report progress.
+---
+
+# Collect terminal facts
+
+Call `facts.GatherTerminalFacts` to detect the current process's terminal
+capabilities. Pass `nil` if you do not need progress updates. See the
+[Progress guide](/tools/trustpkg-cli-forge/progress/overview) for the callback
+update type and the shared progress reporter.
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/facts"
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/progress"
+)
+
+func main() {
+	terminalFacts, err := facts.GatherTerminalFacts(func(update progress.ProgressUpdate) {
+		fmt.Printf("Detecting terminal: %d/%d\n", update.CurrentStep, update.TotalSteps)
+	})
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Interactive: %t\n", terminalFacts.IsInteractive)
+	fmt.Printf("Size: %d x %d\n", terminalFacts.TerminalWidth, terminalFacts.TerminalHeight)
+	fmt.Printf("ANSI: %t\n", terminalFacts.SupportsANSI)
+	fmt.Printf("True color: %t\n", terminalFacts.SupportsTrueColor)
+}
+```
+
+The callback runs after each completed detection step. The total is currently
+13 steps. The reported values depend on the process's streams, environment,
+and terminal, so redirected output may produce different results from an
+interactive terminal.
+
+---
+
+**Next:** [Terminal facts reference](/tools/trustpkg-cli-forge/terminal-parameters/fields)

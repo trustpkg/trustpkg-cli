@@ -1,0 +1,66 @@
+---
+title: Window
+description: Display concurrent task output in a full-terminal panel grid.
+---
+
+# Window
+
+`Logger.StartWindow` reserves the terminal for a grid of panels. Each panel has
+its own logger, so workers can write independently. Finish every panel and wait
+for workers before closing the window.
+
+```go
+import (
+	"errors"
+	"fmt"
+	"sync"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+)
+
+func runTasks(log *logger.Logger) (result error) {
+	window, err := log.StartWindow()
+	if err != nil {
+		return err
+	}
+	defer func() { result = errors.Join(result, window.Close()) }()
+
+	panels := make([]*logger.WindowPanel, 3)
+	for i := range panels {
+		panels[i], err = window.AddPanel(fmt.Sprintf("Task %d", i+1))
+		if err != nil {
+			return err
+		}
+	}
+
+	var workers sync.WaitGroup
+	errs := make(chan error, len(panels))
+	for _, panel := range panels {
+		workers.Add(1)
+		go func(panel *logger.WindowPanel) {
+			defer workers.Done()
+			writeErr := panel.Logger().Print("Working", logger.SeverityInfo)
+			errs <- errors.Join(writeErr, panel.Finish())
+		}(panel)
+	}
+	workers.Wait()
+	close(errs)
+	for err := range errs {
+		result = errors.Join(result, err)
+	}
+	return result
+}
+```
+
+Use Tab / Shift+Tab to change the focused panel, Up / Down to scroll its
+history, and End to return to the latest output. Ctrl+C interrupts the window.
+On a noninteractive terminal, the window writes a labeled output stream instead
+of drawing a full-screen interface.
+
+Do not write directly to the terminal or use the parent logger while the window
+is open. Finished or removed panels reject further writes. `Close` restores the
+terminal and returns interruption, rendering, or restoration errors.
+
+---
+
+**Next:** [Terminal API](/tools/trustpkg-cli-forge/terminal-api/overview)

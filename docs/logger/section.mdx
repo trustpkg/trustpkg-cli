@@ -1,0 +1,36 @@
+---
+title: Section
+description: Group related terminal output with matching separators.
+---
+
+# Section
+
+`Logger.StartSection` writes a heading between opening and closing separators.
+Call the returned finish function even if the work in the section fails.
+Sections can be nested and must be finished in reverse order.
+
+```go
+import (
+	"errors"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+)
+
+func download(log *logger.Logger) (result error) {
+	finish, err := log.StartSection("Downloading", logger.SeverityInfo, logger.DashedSection)
+	if err != nil {
+		return err
+	}
+	defer func() { result = errors.Join(result, finish()) }()
+
+	return log.Print("Fetching package metadata")
+}
+```
+
+Pass a severity to color the separators, or omit it to use the theme's
+separator color. Separators are solid by default; `logger.DashedSection` makes
+them dashed. Titles must be nonempty valid UTF-8 without control characters.
+
+---
+
+**Next:** [Loader](/tools/trustpkg-cli-forge/logger/loader)

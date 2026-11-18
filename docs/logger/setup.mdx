@@ -1,0 +1,64 @@
+---
+title: Set Up a Logger
+description: Initialize a logger with terminal facts and a theme.
+---
+
+# Set up a logger
+
+Create a logger once and share it with the parts of your application that write
+to the terminal. The logger writes to standard output.
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/facts"
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/theme"
+)
+
+func newLogger() (*logger.Logger, error) {
+	terminalFacts, err := facts.GatherTerminalFacts(nil)
+	if err != nil {
+		return nil, err
+	}
+	handler, err := theme.InitTheme(theme.ThemeInitInput{
+		TerminalFacts: terminalFacts,
+	})
+	if err != nil {
+		return nil, err
+	}
+	maxWidth := 100
+	return logger.NewLogger(logger.NewLoggerInput{
+		Facts:    terminalFacts,
+		Theme:    handler.Theme(),
+		MaxWidth: &maxWidth,
+	}), nil
+}
+
+func main() {
+	log, err := newLogger()
+	if err == nil {
+		err = log.Print("Ready", logger.SeveritySuccess)
+	}
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+```
+
+`MaxWidth` is optional; when set, use a positive value. It limits component
+widths and wraps ordinary log messages. Without it, loaders and other
+width-aware components use the detected terminal width or their fallback, while
+ordinary log messages are not width-limited. See
+[terminal facts](/tools/trustpkg-cli-forge/terminal-parameters/fields) and
+[themes](/tools/trustpkg-cli-forge/theming/overview) for how those values are
+selected.
+
+---
+
+**Next:** [Log](/tools/trustpkg-cli-forge/logger/log)

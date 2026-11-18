@@ -1,6 +1,9 @@
-package trustpkgCli
+package theme
 
-import "github.com/trustpkg/trustpkg-cli-forge/internal/theme"
+import (
+	"github.com/trustpkg/trustpkg-cli-forge/internal/progress"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/theme"
+)
 
 type (
 	Theme          = theme.Theme
@@ -48,7 +51,7 @@ func InitTheme(input ThemeInitInput) (*ThemeHandler, error) {
 	return theme.Init(input)
 }
 
-func GenerateThemeFile(directory string, onProgress ProgressCallback) error {
+func GenerateThemeFile(directory string, onProgress progress.Callback) error {
 	return theme.GenerateThemeFile(directory, onProgress)
 }
 

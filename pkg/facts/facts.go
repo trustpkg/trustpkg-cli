@@ -1,4 +1,4 @@
-package trustpkgCli
+package facts
 
 import (
 	"github.com/trustpkg/trustpkg-cli-forge/internal/progress"
@@ -6,11 +6,9 @@ import (
 )
 
 type (
-	Facts            = terminalParameters.Facts
-	TerminalTheme    = terminalParameters.Theme
-	Capability       = terminalParameters.Capability
-	ProgressUpdate   = progress.Update
-	ProgressCallback = progress.Callback
+	Facts         = terminalParameters.Facts
+	TerminalTheme = terminalParameters.Theme
+	Capability    = terminalParameters.Capability
 )
 
 const (
@@ -22,10 +20,6 @@ const (
 	CapabilityUnknown     = terminalParameters.CapabilityUnknown
 )
 
-func GatherFacts(onProgress ProgressCallback) (Facts, error) {
+func GatherTerminalFacts(onProgress progress.Callback) (Facts, error) {
 	return terminalParameters.GatherFacts(onProgress)
-}
-
-func NewProgressReporter(totalSteps int, onProgress ProgressCallback) func() {
-	return progress.NewReporter(totalSteps, onProgress)
 }

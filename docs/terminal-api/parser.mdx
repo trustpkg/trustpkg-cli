@@ -1,0 +1,87 @@
+---
+title: Command Parser
+description: Define a command tree and parse command-line arguments.
+---
+
+# Command parser
+
+Create a parser from a command tree, then pass the arguments without the
+executable name. Parsing returns the selected command path, positional
+arguments, flag values, or generated help; it never runs the command's work.
+
+```go
+import (
+	"fmt"
+
+	terminalApi "github.com/trustpkg/trustpkg-cli-forge/pkg/terminal-api"
+)
+
+func parse(args []string) error {
+	parser, err := terminalApi.NewParser(terminalApi.Command{
+		Name:        "app",
+		Description: "Example command-line app",
+		Flags: []terminalApi.Flag{
+			{
+				Name:        "verbose",
+				Short:       "v",
+				Description: "Enable verbose output",
+				Type:        terminalApi.BoolFlag,
+				Persistent:  true,
+			},
+		},
+		Commands: []terminalApi.Command{{
+			Name:        "build",
+			Description: "Build the project",
+			Flags: []terminalApi.Flag{
+				{
+					Name:          "output",
+					Short:         "o",
+					Description:   "Output directory",
+					Type:          terminalApi.StringFlag,
+					StringDefault: "dist",
+				},
+				{
+					Name:        "tag",
+					Description: "Build tags",
+					Type:        terminalApi.ListFlag,
+				},
+			},
+		}},
+	})
+	if err != nil {
+		return err
+	}
+
+	invocation, err := parser.Parse(args)
+	if err != nil {
+		return err
+	}
+	if invocation.HelpRequested {
+		fmt.Print(invocation.Help)
+		return nil
+	}
+
+	fmt.Println("Command:", invocation.Command)
+	fmt.Println("Arguments:", invocation.Arguments)
+	fmt.Println("Output:", invocation.Flags["output"].String)
+	fmt.Println("Tags:", invocation.Flags["tag"].List)
+	fmt.Println("Verbose:", invocation.Flags["verbose"].Bool)
+	return nil
+}
+```
+
+Pass `os.Args[1:]` to omit the executable name. `StringFlag`, `BoolFlag`, and
+`ListFlag` define the supported value types. Boolean flags need an explicit
+value, such as `--verbose=true`; list flags accept comma-separated and repeated
+values. `StringDefault`, `BoolDefault`, and `ListDefault` set defaults.
+
+Flags apply only to their command unless `Persistent` is true, in which case
+descendants inherit them. `Required` rejects an invocation that omits the
+flag. `Invocation.Command` contains the root-to-leaf command path, and
+`Invocation.Flags` maps flag names to typed `FlagValue`s. Use `Changed` to tell
+an explicitly supplied value from its default. Help is returned in the
+invocation rather than printed automatically.
+
+---
+
+**Next:** [Collect terminal events](/tools/trustpkg-cli-forge/terminal-api/events)

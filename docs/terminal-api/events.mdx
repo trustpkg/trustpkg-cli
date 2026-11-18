@@ -1,0 +1,74 @@
+---
+title: Terminal Events
+description: Read terminal input, resize, and interrupt events.
+---
+
+# Terminal events
+
+`NewEventSource` starts only the event readers enabled in `EventOptions`.
+Close the source when finished; on a TTY, key input can switch the terminal
+into raw mode, which `Close` restores.
+
+```go
+import (
+	"context"
+	"errors"
+	"fmt"
+	"io"
+	"os"
+
+	"github.com/charmbracelet/x/input"
+	terminalApi "github.com/trustpkg/trustpkg-cli-forge/pkg/terminal-api"
+)
+
+func listen(ctx context.Context) (result error) {
+	source, err := terminalApi.NewEventSource(terminalApi.EventOptions{
+		Input:      os.Stdin,
+		Output:     os.Stdout,
+		Keys:       true,
+		Resize:     true,
+		Interrupts: true,
+	})
+	if err != nil {
+		return err
+	}
+	defer func() { result = errors.Join(result, source.Close()) }()
+
+	for {
+		event, err := source.Next(ctx)
+		if errors.Is(err, io.EOF) {
+			return nil
+		}
+		if err != nil {
+			return err
+		}
+
+		switch event.Kind {
+		case terminalApi.InputEvent:
+			if key, ok := event.Input.(input.KeyPressEvent); ok {
+				fmt.Println("Key:", key.Keystroke())
+			}
+		case terminalApi.ResizeEvent:
+			fmt.Printf("Terminal: %d x %d\n", event.Width, event.Height)
+		case terminalApi.InterruptEvent, terminalApi.EOFEvent:
+			return nil
+		}
+	}
+}
+```
+
+Enable at least one event type. `Keys` requires `Input`; `Resize` requires an
+`Output` file connected to a terminal. Resize reports the initial size and
+later changes. `InputEvent` carries a Charm `input.Event`; input EOF produces
+`EOFEvent`. With `Interrupts` enabled, process interrupts and Ctrl+C in raw key
+input produce `InterruptEvent`.
+
+`Next` waits for an event and accepts a non-nil context. Canceling that context
+only cancels the current wait; call `Close` to stop the source. It may return
+`io.EOF` after queued events are consumed. Other setup and read failures are
+returned as errors. Unsupported platforms return
+`ErrEventsUnsupported`; event collection is supported on Linux, macOS, and BSD.
+
+---
+
+**Next:** [Report progress](/tools/trustpkg-cli-forge/progress/overview)

@@ -1,0 +1,36 @@
+---
+title: Logger
+description: Write terminal output and build interactive CLI experiences.
+---
+
+# Logger
+
+The `pkg/logger` package provides a shared logger for terminal output and
+interactive CLI components. Create one with terminal facts and a theme, then
+use the same logger for messages, prompts, loaders, footers, and windows.
+
+## Output components
+
+- [Log](/tools/trustpkg-cli-forge/logger/log): Write a message with an optional severity color.
+- [Print](/tools/trustpkg-cli-forge/logger/print): Add a timestamp, severity prefix, or both.
+- [Command](/tools/trustpkg-cli-forge/logger/command): Display a copyable command; it does not execute it.
+- [Section](/tools/trustpkg-cli-forge/logger/section): Group related output with separators.
+- [Loader](/tools/trustpkg-cli-forge/logger/loader): Show progress on one updating line.
+- [Footer](/tools/trustpkg-cli-forge/logger/footer): Reserve terminal rows for a status and spinner.
+
+## Interactive components
+
+- [Select](/tools/trustpkg-cli-forge/logger/select): Let the user choose from a keyboard-controlled list.
+- [Input](/tools/trustpkg-cli-forge/logger/input): Prompt for and validate text.
+- [Window](/tools/trustpkg-cli-forge/logger/window): Show concurrent task output in separate panels.
+
+Prompts and interactive windows require a compatible terminal. Use one
+component at a time when it reads terminal input, and check errors returned by
+each operation.
+
+Start with [logger setup](/tools/trustpkg-cli-forge/logger/setup) or review the
+[terminal requirements](/tools/trustpkg-cli-forge/getting-started/requirements).
+
+---
+
+**Next:** [Set up a logger](/tools/trustpkg-cli-forge/logger/setup)

@@ -1,0 +1,47 @@
+---
+title: Input
+description: Ask for text with optional validation.
+---
+
+# Input
+
+`Logger.Input` displays an editable text field and returns the confirmed value.
+Provide a validator to reject values with a message shown in the prompt.
+
+```go
+import (
+	"fmt"
+	"strings"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+)
+
+func askPackageName(log *logger.Logger) (string, error) {
+	return log.Input(logger.InputConfig{
+		Title:        "Package name",
+		Placeholder:  "e.g. openssl-devel",
+		InitialValue: "",
+		Required:     true,
+		Validate: func(value string) error {
+			if strings.ContainsAny(value, " \t") {
+				return fmt.Errorf("package names cannot contain spaces")
+			}
+			return nil
+		},
+	})
+}
+```
+
+Use `Required` to reject empty or whitespace-only input. `Validate` runs when
+the user confirms; return an error to keep the prompt open and show its message.
+Enter confirms, while Esc or Ctrl+C cancels. Cancellation returns
+`logger.ErrPromptCancelled`; unsupported terminals return
+`logger.ErrPromptUnsupported`.
+
+The prompt requires an interactive ANSI terminal, at least 12 columns, and at
+least 6 rows. Resize a smaller terminal or cancel with Esc. It cannot run while
+a footer, loader, window, or another prompt is active on the same logger.
+
+---
+
+**Next:** [Window](/tools/trustpkg-cli-forge/logger/window)

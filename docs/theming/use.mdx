@@ -1,0 +1,64 @@
+---
+title: Load a Custom Theme
+description: Load a generated theme file and apply it to terminal output.
+---
+
+# Load a custom theme
+
+Pass the path to your generated `theme.toml` in `ThemeInitInput`. The theme
+package selects the palette that matches the detected terminal and gives it to
+the logger:
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/facts"
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/theme"
+)
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+
+func run() error {
+	terminalFacts, err := facts.GatherTerminalFacts(nil)
+	if err != nil {
+		return err
+	}
+	themePath := "config/theme.toml"
+	handler, err := theme.InitTheme(theme.ThemeInitInput{
+		ThemeFilePath: &themePath,
+		TerminalFacts: terminalFacts,
+	})
+	if err != nil {
+		return err
+	}
+	log := logger.NewLogger(logger.NewLoggerInput{
+		Facts: terminalFacts,
+		Theme: handler.Theme(),
+	})
+	return log.Print("Ready", logger.SeveritySuccess)
+}
+```
+
+The terminal facts determine whether the light or dark table is used and
+whether the full-color or limited-color palette is selected. If ANSI colors are
+not supported, output uses the no-color theme. A custom theme requires the
+terminal appearance to be detected as light or dark.
+
+If `ThemeFilePath` is omitted, the package looks for
+`trustpkg-cli-forge-theme.toml` in the current working directory. When the file
+is absent, built-in themes are used automatically. This default behavior is
+also suitable when you do not need a custom theme.
+
+---
+
+**Next:** [Logger guide](/tools/trustpkg-cli-forge/logger/overview)

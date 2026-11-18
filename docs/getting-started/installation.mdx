@@ -1,0 +1,78 @@
+---
+title: Installation
+description: Install Trustpkg CLI Forge and use its Go packages.
+---
+
+# Installation
+
+## Install the module
+
+From your Go project directory, add Trustpkg CLI Forge:
+
+```sh
+go get github.com/trustpkg/trustpkg-cli-forge@latest
+```
+
+For a reproducible build, pin a release:
+
+```sh
+go get github.com/trustpkg/trustpkg-cli-forge@v1.0.0
+```
+
+The public packages are:
+
+- `pkg/facts` for terminal capability detection.
+- `pkg/theme` for theme initialization and color helpers.
+- `pkg/logger` for logging, prompts, loaders, footers, and windows.
+- `pkg/terminal-api` for command parsing and terminal events.
+- `pkg/progress` for progress callbacks and updates.
+
+## Run a logger example
+
+This complete example gathers terminal facts, initializes a theme, and prints
+a success message. Save it as `main.go` and run `go run .`:
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/facts"
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/logger"
+	"github.com/trustpkg/trustpkg-cli-forge/pkg/theme"
+)
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+
+func run() error {
+	terminalFacts, err := facts.GatherTerminalFacts(nil)
+	if err != nil {
+		return err
+	}
+	handler, err := theme.InitTheme(theme.ThemeInitInput{TerminalFacts: terminalFacts})
+	if err != nil {
+		return err
+	}
+	log := logger.NewLogger(logger.NewLoggerInput{Facts: terminalFacts, Theme: handler.Theme()})
+	return log.Print("Ready", logger.SeveritySuccess)
+}
+```
+
+The output below was captured by running the example with output redirected, so
+it shows the plain-text output without terminal color sequences:
+
+```text
+$ go run .
+Success: Ready
+```
+
+---
+
+**Next:** [Requirements](/tools/trustpkg-cli-forge/getting-started/requirements)
