@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/pelletier/go-toml/v2"
-	"github.com/trustpkg/trustpkg-cli/internal/progress"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/progress"
 )
 
 func GenerateThemeFile(themeDirPath string, onProgress progress.Callback) error {

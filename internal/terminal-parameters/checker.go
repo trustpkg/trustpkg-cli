@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/trustpkg/trustpkg-cli/internal/progress"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/progress"
 	"golang.org/x/term"
 )
 

@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/trustpkg/trustpkg-cli/internal/logs"
-	"github.com/trustpkg/trustpkg-cli/internal/progress"
-	terminalParameters "github.com/trustpkg/trustpkg-cli/internal/terminal-parameters"
-	theme "github.com/trustpkg/trustpkg-cli/internal/theme"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/logs"
+	"github.com/trustpkg/trustpkg-cli-forge/internal/progress"
+	terminalParameters "github.com/trustpkg/trustpkg-cli-forge/internal/terminal-parameters"
+	theme "github.com/trustpkg/trustpkg-cli-forge/internal/theme"
 )
 
 func main() {

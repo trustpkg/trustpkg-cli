@@ -1,6 +1,6 @@
 package trustpkgCli
 
-import "github.com/trustpkg/trustpkg-cli/internal/theme"
+import "github.com/trustpkg/trustpkg-cli-forge/internal/theme"
 
 type (
 	Theme          = theme.Theme

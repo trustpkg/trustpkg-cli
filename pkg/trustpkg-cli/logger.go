@@ -1,6 +1,6 @@
 package trustpkgCli
 
-import "github.com/trustpkg/trustpkg-cli/internal/logs"
+import "github.com/trustpkg/trustpkg-cli-forge/internal/logs"
 
 type (
 	Logger         = logs.Logger
